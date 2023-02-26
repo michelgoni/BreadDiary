@@ -5,7 +5,6 @@
 //  Created by Michel Goñi on 26/2/23.
 //
 
-
 import NumbersUI
 import SwiftUI
 
@@ -15,16 +14,16 @@ public extension ViewFactory {
             MainView()
         }
     }
-    
+
     func getDiaryView() -> some View {
-        
+
         make {
             ContentView()
         }
     }
-    
+
     func getCalendarView() -> some View {
-        
+
         make {
             ContentView()
         }
