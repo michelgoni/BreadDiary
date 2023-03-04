@@ -41,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2D8019D229B3B99D0056EEE4 /* FeatureDiary */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FeatureDiary; path = Features/FeatureDiary; sourceTree = "<group>"; };
 		2D8615C129ABB4DA009B000C /* BreadDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreadDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D8615C629ABB4DA009B000C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2D8615C829ABB4DB009B000C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -85,9 +86,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D8019D129B3B99D0056EEE4 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				2D8019D229B3B99D0056EEE4 /* FeatureDiary */,
+			);
+			name = Features;
+			sourceTree = "<group>";
+		};
 		2D8615B829ABB4DA009B000C = {
 			isa = PBXGroup;
 			children = (
+				2D8019D129B3B99D0056EEE4 /* Features */,
 				2D8615C329ABB4DA009B000C /* BreadDiary */,
 				2D8615D929ABB4DB009B000C /* BreadDiaryTests */,
 				2D8615E329ABB4DB009B000C /* BreadDiaryUITests */,
