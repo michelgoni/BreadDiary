@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/michelgoni/NumbersEx",
       "state" : {
-        "revision" : "d7594fb98f5a1aa4ac310cb7c323072faa60827b",
-        "version" : "1.1.2"
+        "branch" : "main",
+        "revision" : "c29ec809551d1e6211754d10e6854673f8a5dd01"
       }
     },
     {

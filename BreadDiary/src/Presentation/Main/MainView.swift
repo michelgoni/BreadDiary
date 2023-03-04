@@ -5,6 +5,7 @@
 //  Created by Michel Goñi on 26/2/23.
 //
 
+import FeatureDiary
 import SwiftUI
 import NumbersEx
 
@@ -27,7 +28,7 @@ private struct Container: View {
     var body: some View {
         ZStack {
             TabView(selection: $selectedTab) {
-                viewFactory.getDiaryView().tabItem(.diary)
+                viewFactory.diaryView().tabItem(.diary)
                 viewFactory.getCalendarView().tabItem(.calendar)
             }
         }

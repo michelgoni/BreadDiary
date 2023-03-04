@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D8019DA29B3BE760056EEE4 /* FeatureDiary in Frameworks */ = {isa = PBXBuildFile; productRef = 2D8019D929B3BE760056EEE4 /* FeatureDiary */; };
 		2D8615C729ABB4DA009B000C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8615C629ABB4DA009B000C /* ContentView.swift */; };
 		2D8615C929ABB4DB009B000C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D8615C829ABB4DB009B000C /* Assets.xcassets */; };
 		2D8615CC29ABB4DB009B000C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D8615CB29ABB4DB009B000C /* Preview Assets.xcassets */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2D8019D729B3BE4C0056EEE4 /* FeatureDiary */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FeatureDiary; path = BreadDiary/FeatureDiary; sourceTree = "<group>"; };
 		2D8615C129ABB4DA009B000C /* BreadDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreadDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D8615C629ABB4DA009B000C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2D8615C829ABB4DB009B000C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D8019DA29B3BE760056EEE4 /* FeatureDiary in Frameworks */,
 				2D86160229ABB8F0009B000C /* NumbersEx in Frameworks */,
 				2D8615F829ABB7B3009B000C /* NumbersUI in Frameworks */,
 			);
@@ -85,13 +88,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D8019D629B3BE4C0056EEE4 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				2D8019D729B3BE4C0056EEE4 /* FeatureDiary */,
+			);
+			name = Features;
+			sourceTree = "<group>";
+		};
+		2D8019D829B3BE760056EEE4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		2D8615B829ABB4DA009B000C = {
 			isa = PBXGroup;
 			children = (
+				2D8019D629B3BE4C0056EEE4 /* Features */,
 				2D8615C329ABB4DA009B000C /* BreadDiary */,
 				2D8615D929ABB4DB009B000C /* BreadDiaryTests */,
 				2D8615E329ABB4DB009B000C /* BreadDiaryUITests */,
 				2D8615C229ABB4DA009B000C /* Products */,
+				2D8019D829B3BE760056EEE4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -198,6 +218,7 @@
 			packageProductDependencies = (
 				2D8615F729ABB7B3009B000C /* NumbersUI */,
 				2D86160129ABB8F0009B000C /* NumbersEx */,
+				2D8019D929B3BE760056EEE4 /* FeatureDiary */,
 			);
 			productName = BreadDiary;
 			productReference = 2D8615C129ABB4DA009B000C /* BreadDiary.app */;
@@ -683,6 +704,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2D8019D929B3BE760056EEE4 /* FeatureDiary */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FeatureDiary;
+		};
 		2D8615F729ABB7B3009B000C /* NumbersUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2D8615F629ABB7B3009B000C /* XCRemoteSwiftPackageReference "NumbersUI" */;
