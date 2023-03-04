@@ -1,0 +1,13 @@
+# By default, SwiftLint uses a set of sensible default rules you can adjust:
+# parent_config: .swiftlint_base.yml
+
+included:
+  - BreadDiary
+
+excluded:
+  - Packages/Dependencies
+  - Packages/*/*/.build
+  - Packages/*/*/Tests
+  - Packages/AutoMockable.generated.swift
+  - Packages/Features/*/Tests/*.*
+  #- Packages/*/*/*/*/API.swift

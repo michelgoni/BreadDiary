@@ -1,0 +1,41 @@
+{
+  "pins" : [
+    {
+      "identity" : "numbersex",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/michelgoni/NumbersEx",
+      "state" : {
+        "revision" : "d7594fb98f5a1aa4ac310cb7c323072faa60827b",
+        "version" : "1.1.2"
+      }
+    },
+    {
+      "identity" : "numbersinjector",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/michelgoni/NumbersInjector",
+      "state" : {
+        "branch" : "main",
+        "revision" : "4951e828c9568767b3f1e3b3f98ed59b167c6128"
+      }
+    },
+    {
+      "identity" : "numbersui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/michelgoni/NumbersUI",
+      "state" : {
+        "branch" : "main",
+        "revision" : "4b608aa125720e4ce9772c991b34836c287fc50d"
+      }
+    },
+    {
+      "identity" : "swinject",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Swinject/Swinject.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "dfb78563c581eea560ea90c19dbe8d1d93d11260"
+      }
+    }
+  ],
+  "version" : 2
+}

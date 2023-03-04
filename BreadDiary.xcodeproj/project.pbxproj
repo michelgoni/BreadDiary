@@ -7,15 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D8615C529ABB4DA009B000C /* BreadDiaryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8615C429ABB4DA009B000C /* BreadDiaryApp.swift */; };
 		2D8615C729ABB4DA009B000C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8615C629ABB4DA009B000C /* ContentView.swift */; };
 		2D8615C929ABB4DB009B000C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D8615C829ABB4DB009B000C /* Assets.xcassets */; };
 		2D8615CC29ABB4DB009B000C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D8615CB29ABB4DB009B000C /* Preview Assets.xcassets */; };
-		2D8615CE29ABB4DB009B000C /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8615CD29ABB4DB009B000C /* Persistence.swift */; };
 		2D8615D129ABB4DB009B000C /* BreadDiary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D8615CF29ABB4DB009B000C /* BreadDiary.xcdatamodeld */; };
 		2D8615DB29ABB4DB009B000C /* BreadDiaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8615DA29ABB4DB009B000C /* BreadDiaryTests.swift */; };
 		2D8615E529ABB4DB009B000C /* BreadDiaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8615E429ABB4DB009B000C /* BreadDiaryUITests.swift */; };
 		2D8615E729ABB4DB009B000C /* BreadDiaryUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8615E629ABB4DB009B000C /* BreadDiaryUITestsLaunchTests.swift */; };
+		2D8615F829ABB7B3009B000C /* NumbersUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2D8615F729ABB7B3009B000C /* NumbersUI */; };
+		2D8615FA29ABB7CE009B000C /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8615F929ABB7CE009B000C /* AppCoordinator.swift */; };
+		2D8615FD29ABB7FE009B000C /* ViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8615FC29ABB7FE009B000C /* ViewFactory.swift */; };
+		2D8615FF29ABB829009B000C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8615FE29ABB829009B000C /* MainView.swift */; };
+		2D86160229ABB8F0009B000C /* NumbersEx in Frameworks */ = {isa = PBXBuildFile; productRef = 2D86160129ABB8F0009B000C /* NumbersEx */; };
+		2D86160429ABBDC9009B000C /* Appdelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D86160329ABBDC9009B000C /* Appdelegate.swift */; };
+		2D86160629ABBE33009B000C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D86160529ABBE33009B000C /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,17 +42,20 @@
 
 /* Begin PBXFileReference section */
 		2D8615C129ABB4DA009B000C /* BreadDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreadDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D8615C429ABB4DA009B000C /* BreadDiaryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreadDiaryApp.swift; sourceTree = "<group>"; };
 		2D8615C629ABB4DA009B000C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2D8615C829ABB4DB009B000C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2D8615CB29ABB4DB009B000C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		2D8615CD29ABB4DB009B000C /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		2D8615D029ABB4DB009B000C /* BreadDiary.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BreadDiary.xcdatamodel; sourceTree = "<group>"; };
 		2D8615D629ABB4DB009B000C /* BreadDiaryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BreadDiaryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D8615DA29ABB4DB009B000C /* BreadDiaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreadDiaryTests.swift; sourceTree = "<group>"; };
 		2D8615E029ABB4DB009B000C /* BreadDiaryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BreadDiaryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D8615E429ABB4DB009B000C /* BreadDiaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreadDiaryUITests.swift; sourceTree = "<group>"; };
 		2D8615E629ABB4DB009B000C /* BreadDiaryUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreadDiaryUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		2D8615F929ABB7CE009B000C /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		2D8615FC29ABB7FE009B000C /* ViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFactory.swift; sourceTree = "<group>"; };
+		2D8615FE29ABB829009B000C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		2D86160329ABBDC9009B000C /* Appdelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appdelegate.swift; sourceTree = "<group>"; };
+		2D86160529ABBE33009B000C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +63,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D86160229ABB8F0009B000C /* NumbersEx in Frameworks */,
+				2D8615F829ABB7B3009B000C /* NumbersUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,10 +108,8 @@
 		2D8615C329ABB4DA009B000C /* BreadDiary */ = {
 			isa = PBXGroup;
 			children = (
-				2D8615C429ABB4DA009B000C /* BreadDiaryApp.swift */,
-				2D8615C629ABB4DA009B000C /* ContentView.swift */,
+				2D8615F329ABB678009B000C /* src */,
 				2D8615C829ABB4DB009B000C /* Assets.xcassets */,
-				2D8615CD29ABB4DB009B000C /* Persistence.swift */,
 				2D8615CF29ABB4DB009B000C /* BreadDiary.xcdatamodeld */,
 				2D8615CA29ABB4DB009B000C /* Preview Content */,
 			);
@@ -133,6 +141,43 @@
 			path = BreadDiaryUITests;
 			sourceTree = "<group>";
 		};
+		2D8615F329ABB678009B000C /* src */ = {
+			isa = PBXGroup;
+			children = (
+				2D8615F429ABB681009B000C /* Presentation */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		2D8615F429ABB681009B000C /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				2D8615FB29ABB7E9009B000C /* ViewFactory */,
+				2D8615F529ABB687009B000C /* Main */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		2D8615F529ABB687009B000C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				2D8615C629ABB4DA009B000C /* ContentView.swift */,
+				2D8615F929ABB7CE009B000C /* AppCoordinator.swift */,
+				2D8615FE29ABB829009B000C /* MainView.swift */,
+				2D86160329ABBDC9009B000C /* Appdelegate.swift */,
+				2D86160529ABBE33009B000C /* SceneDelegate.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		2D8615FB29ABB7E9009B000C /* ViewFactory */ = {
+			isa = PBXGroup;
+			children = (
+				2D8615FC29ABB7FE009B000C /* ViewFactory.swift */,
+			);
+			path = ViewFactory;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,12 +188,17 @@
 				2D8615BD29ABB4DA009B000C /* Sources */,
 				2D8615BE29ABB4DA009B000C /* Frameworks */,
 				2D8615BF29ABB4DA009B000C /* Resources */,
+				2D86160729ABC13D009B000C /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = BreadDiary;
+			packageProductDependencies = (
+				2D8615F729ABB7B3009B000C /* NumbersUI */,
+				2D86160129ABB8F0009B000C /* NumbersEx */,
+			);
 			productName = BreadDiary;
 			productReference = 2D8615C129ABB4DA009B000C /* BreadDiary.app */;
 			productType = "com.apple.product-type.application";
@@ -221,6 +271,10 @@
 				Base,
 			);
 			mainGroup = 2D8615B829ABB4DA009B000C;
+			packageReferences = (
+				2D8615F629ABB7B3009B000C /* XCRemoteSwiftPackageReference "NumbersUI" */,
+				2D86160029ABB8F0009B000C /* XCRemoteSwiftPackageReference "NumbersEx" */,
+			);
 			productRefGroup = 2D8615C229ABB4DA009B000C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -258,15 +312,38 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2D86160729ABC13D009B000C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2D8615BD29ABB4DA009B000C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D8615CE29ABB4DB009B000C /* Persistence.swift in Sources */,
+				2D86160429ABBDC9009B000C /* Appdelegate.swift in Sources */,
+				2D86160629ABBE33009B000C /* SceneDelegate.swift in Sources */,
+				2D8615FF29ABB829009B000C /* MainView.swift in Sources */,
+				2D8615FD29ABB7FE009B000C /* ViewFactory.swift in Sources */,
 				2D8615C729ABB4DA009B000C /* ContentView.swift in Sources */,
+				2D8615FA29ABB7CE009B000C /* AppCoordinator.swift in Sources */,
 				2D8615D129ABB4DB009B000C /* BreadDiary.xcdatamodeld in Sources */,
-				2D8615C529ABB4DA009B000C /* BreadDiaryApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,6 +662,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2D8615F629ABB7B3009B000C /* XCRemoteSwiftPackageReference "NumbersUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/michelgoni/NumbersUI";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		2D86160029ABB8F0009B000C /* XCRemoteSwiftPackageReference "NumbersEx" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/michelgoni/NumbersEx";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2D8615F729ABB7B3009B000C /* NumbersUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D8615F629ABB7B3009B000C /* XCRemoteSwiftPackageReference "NumbersUI" */;
+			productName = NumbersUI;
+		};
+		2D86160129ABB8F0009B000C /* NumbersEx */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D86160029ABB8F0009B000C /* XCRemoteSwiftPackageReference "NumbersEx" */;
+			productName = NumbersEx;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		2D8615CF29ABB4DB009B000C /* BreadDiary.xcdatamodeld */ = {
