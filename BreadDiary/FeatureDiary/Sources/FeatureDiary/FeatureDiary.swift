@@ -1,43 +1,75 @@
 import SwiftUI
 import Foundation
-@available(iOS 13.0, *)
+@available(iOS 16.0, *)
 
-@available(iOS 13.0, *)
-struct Cell: View {
-    let row: Int
-    let column: Int
-
+struct Device: Identifiable, Hashable {
+    let id = UUID()
+    let name: String
+    let iconName: String
+}
+@available(iOS 16.0, *)
+enum DeviceRepository {
+    static let all = [
+        Device(name: "AirPods", iconName: "airpods"),
+        Device(name: "AirPods Pro", iconName: "airpodspro"),
+        Device(name: "AppleTV", iconName: "appletv"),
+        Device(name: "Apple Watch", iconName: "applewatch"),
+        Device(name: "HomePod", iconName: "homepod"),
+        Device(name: "iPad", iconName: "ipad"),
+        Device(name: "iPhone", iconName: "iphone"),
+        Device(name: "iPod", iconName: "ipod"),
+        Device(name: "Apple Pencil", iconName: "pencil.tip")
+    ]
+}
+@available(iOS 16.0, *)
+struct DeviceItem: View {
+    let device: Device
     var body: some View {
-        Text("\(row), \(column)")
-            .frame(width: 320, height: 180)
-            .background(Color.blue)
+        VStack {
+            Image(systemName: device.iconName)
+                .font(.title)
+            Text(device.name)
+                .font(.caption)
+                .multilineTextAlignment(.center)
+                .foregroundColor(.primary)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding()
+        .background(Color(white: 0.95))
+        .cornerRadius(10)
+        .shadow(radius: 5)
     }
 }
-
-@available(iOS 13.0, *)
-struct Row: View {
-    let index: Int
-
+@available(iOS 16.0, *)
+struct ContentView: View {
+    // 1
+    let devices = DeviceRepository.all
+    // 2
+    let columns = [
+        GridItem(.flexible(minimum: 90), spacing: 20),
+        GridItem(.flexible(minimum: 90), spacing: 20),
+        GridItem(.flexible(minimum: 90), spacing: 20)
+    ]
     var body: some View {
-        ScrollView(.horizontal) {
-            HStack {
-                ForEach(0..<10) { index1 in
-                    Cell(row: index, column: index1)
+        NavigationStack {
+            ScrollView {
+                // 3
+                LazyVGrid(columns: columns, spacing: 20) {
+                    ForEach(devices, content: DeviceItem.init)
                 }
+                .foregroundColor(.red)
+                .padding(.all, 50)
+                .navigationTitle("Devices")
+                .navigationViewStyle(.stack)
             }
         }
     }
 }
 
-@available(iOS 13.0, *)
-struct Grid: View {
-    var body: some View {
-        ScrollView {
-            VStack {
-                ForEach(0..<20) { index in
-                    Row(index: index)
-                }
-            }
-        }
+@available(iOS 16.0, *)
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro Max"))
     }
 }
