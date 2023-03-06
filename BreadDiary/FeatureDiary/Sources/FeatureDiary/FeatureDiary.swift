@@ -28,12 +28,16 @@ struct DeviceItem: View {
         VStack {
             Image(systemName: device.iconName)
                 .font(.title)
+                .padding(.bottom, 8)
             Text(device.name)
                 .font(.caption)
                 .multilineTextAlignment(.center)
                 .foregroundColor(.primary)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(maxWidth: .infinity,
+               maxHeight: .infinity,
+               alignment: .leading)
+        .listRowInsets(EdgeInsets())
         .padding()
         .background(Color(white: 0.95))
         .cornerRadius(10)
@@ -46,9 +50,8 @@ struct ContentView: View {
     let devices = DeviceRepository.all
     // 2
     let columns = [
-        GridItem(.flexible(minimum: 90), spacing: 20),
-        GridItem(.flexible(minimum: 90), spacing: 20),
-        GridItem(.flexible(minimum: 90), spacing: 20)
+        GridItem(.flexible(minimum: 190), spacing: 20),
+        GridItem(.flexible(minimum: 190), spacing: 20)
     ]
     var body: some View {
         NavigationStack {
