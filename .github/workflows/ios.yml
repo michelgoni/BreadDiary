@@ -12,10 +12,21 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v3
-      
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Select Xcode
         run: sudo xcode-select -switch /Applications/Xcode.app
+
+      - name: Cache SPM dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/Library/Caches/org.swift.swiftpm
+            ~/Library/Developer/Xcode/DerivedData
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
 
       - name: Build and Test
         run: |
@@ -23,4 +34,57 @@ jobs:
             -scheme BreadDiary \
             -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
             -enableCodeCoverage YES \
+            -resultBundlePath TestResults.xcresult \
             | xcpretty && exit ${PIPESTATUS[0]}
+
+      - name: Upload test results
+        if: success() || failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: TestResults.xcresult
+          retention-days: 7
+
+      - name: Generate code coverage report
+        run: |
+          xcrun xccov view --report TestResults.xcresult > coverage.txt
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: coverage.txt
+          retention-days: 7
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          xcode: true
+          xcode_derived_data: ~/Library/Developer/Xcode/DerivedData
+          fail_ci_if_error: true
+
+      - name: Post test results to PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const coverage = fs.readFileSync('coverage.txt', 'utf8');
+            const body = `### Test Results Summary
+            
+            <details>
+            <summary>Code Coverage Report</summary>
+            
+            \`\`\`
+            ${coverage}
+            \`\`\`
+            </details>
+            `;
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: body
+            });
