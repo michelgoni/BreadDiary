@@ -1,0 +1,26 @@
+name: iOS CI
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Select Xcode
+        run: sudo xcode-select -switch /Applications/Xcode.app
+
+      - name: Build and Test
+        run: |
+          xcodebuild test -project BreadDiary.xcodeproj \
+            -scheme BreadDiary \
+            -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
+            -enableCodeCoverage YES \
+            | xcpretty && exit ${PIPESTATUS[0]}
