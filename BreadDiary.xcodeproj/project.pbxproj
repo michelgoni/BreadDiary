@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -208,7 +208,7 @@
 				2DDAF8072CFA4180003859FD /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				2DDAF84C2CFA425E003859FD /* XCRemoteSwiftPackageReference "swift-tagged" */,
 			);
-			preferredProjectObjectVersion = 77;
+			preferredProjectObjectVersion = 56;
 			productRefGroup = 2DDAF7CC2CFA3F72003859FD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
