@@ -1,6 +1,26 @@
 import ComposableArchitecture
 import Foundation
 
+enum HomeClientError: LocalizedError {
+    case fileNotFound
+    case encodingFailed
+    case decodingFailed
+    case saveFailed
+    
+    var errorDescription: String? {
+        switch self {
+        case .fileNotFound:
+            return "Bread entries file not found"
+        case .encodingFailed:
+            return "Failed to encode bread entries"
+        case .decodingFailed:
+            return "Failed to decode bread entries"
+        case .saveFailed:
+            return "Failed to save bread entries"
+        }
+    }
+}
+
 struct HomeClient {
     var fetch: () async throws -> [Entry]
     var save: ([Entry]) async throws -> Void
@@ -47,18 +67,36 @@ extension HomeClient: DependencyKey {
                     )
                 ]
                 
-                let data = try JSONEncoder().encode(initialEntries)
-                try data.write(to: fileURL)
-                return initialEntries
+                do {
+                    let data = try JSONEncoder().encode(initialEntries)
+                    try data.write(to: fileURL)
+                    return initialEntries
+                } catch let encodingError as EncodingError {
+                    throw HomeClientError.encodingFailed
+                } catch {
+                    throw HomeClientError.saveFailed
+                }
             }
             
-            let data = try Data(contentsOf: fileURL)
-            let entries = try JSONDecoder().decode([Entry].self, from: data)
-            return entries
+            do {
+                let data = try Data(contentsOf: fileURL)
+                let entries = try JSONDecoder().decode([Entry].self, from: data)
+                return entries
+            } catch let decodingError as DecodingError {
+                throw HomeClientError.decodingFailed
+            } catch {
+                throw HomeClientError.fileNotFound
+            }
         },
         save: { entries in
-            let data = try JSONEncoder().encode(entries)
-            try data.write(to: FileManager.breadEntriesFileURL())
+            do {
+                let data = try JSONEncoder().encode(entries)
+                try data.write(to: FileManager.breadEntriesFileURL())
+            } catch let encodingError as EncodingError {
+                throw HomeClientError.encodingFailed
+            } catch {
+                throw HomeClientError.saveFailed
+            }
         }
     )
     
