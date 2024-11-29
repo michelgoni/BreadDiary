@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2DDAF8092CFA4180003859FD /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 2DDAF8082CFA4180003859FD /* ComposableArchitecture */; };
+		2DDAF84E2CFA425E003859FD /* Tagged in Frameworks */ = {isa = PBXBuildFile; productRef = 2DDAF84D2CFA425E003859FD /* Tagged */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		2DDAF7DC2CFA3F74003859FD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DDAF84E2CFA425E003859FD /* Tagged in Frameworks */,
+				2DDAF8092CFA4180003859FD /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +119,8 @@
 			);
 			name = BreadDiary;
 			packageProductDependencies = (
+				2DDAF8082CFA4180003859FD /* ComposableArchitecture */,
+				2DDAF84D2CFA425E003859FD /* Tagged */,
 			);
 			productName = BreadDiary;
 			productReference = 2DDAF7CB2CFA3F72003859FD /* BreadDiary.app */;
@@ -195,6 +204,10 @@
 			);
 			mainGroup = 2DDAF7C22CFA3F72003859FD;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				2DDAF8072CFA4180003859FD /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				2DDAF84C2CFA425E003859FD /* XCRemoteSwiftPackageReference "swift-tagged" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 2DDAF7CC2CFA3F72003859FD /* Products */;
 			projectDirPath = "";
@@ -552,6 +565,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2DDAF8072CFA4180003859FD /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.16.1;
+			};
+		};
+		2DDAF84C2CFA425E003859FD /* XCRemoteSwiftPackageReference "swift-tagged" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-tagged/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2DDAF8082CFA4180003859FD /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2DDAF8072CFA4180003859FD /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+		2DDAF84D2CFA425E003859FD /* Tagged */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2DDAF84C2CFA425E003859FD /* XCRemoteSwiftPackageReference "swift-tagged" */;
+			productName = Tagged;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2DDAF7C32CFA3F72003859FD /* Project object */;
 }
