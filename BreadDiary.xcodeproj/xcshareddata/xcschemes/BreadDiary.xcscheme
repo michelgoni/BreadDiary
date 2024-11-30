@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9D4D3B7F2B17B74D00E5F56B"
+               BlueprintIdentifier = "2DDAF7CA2CFA3F72003859FD"
                BuildableName = "BreadDiary.app"
                BlueprintName = "BreadDiary"
                ReferencedContainer = "container:BreadDiary.xcodeproj">
@@ -34,7 +34,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9D4D3B8F2B17B74E00E5F56B"
+               BlueprintIdentifier = "2DDAF7DA2CFA3F74003859FD"
                BuildableName = "BreadDiaryTests.xctest"
                BlueprintName = "BreadDiaryTests"
                ReferencedContainer = "container:BreadDiary.xcodeproj">
@@ -45,7 +45,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9D4D3B992B17B74E00E5F56B"
+               BlueprintIdentifier = "2DDAF7E42CFA3F74003859FD"
                BuildableName = "BreadDiaryUITests.xctest"
                BlueprintName = "BreadDiaryUITests"
                ReferencedContainer = "container:BreadDiary.xcodeproj">
@@ -67,7 +67,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9D4D3B7F2B17B74D00E5F56B"
+            BlueprintIdentifier = "2DDAF7CA2CFA3F72003859FD"
             BuildableName = "BreadDiary.app"
             BlueprintName = "BreadDiary"
             ReferencedContainer = "container:BreadDiary.xcodeproj">
@@ -84,7 +84,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9D4D3B7F2B17B74D00E5F56B"
+            BlueprintIdentifier = "2DDAF7CA2CFA3F72003859FD"
             BuildableName = "BreadDiary.app"
             BlueprintName = "BreadDiary"
             ReferencedContainer = "container:BreadDiary.xcodeproj">
