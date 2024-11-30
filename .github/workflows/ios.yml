@@ -14,10 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Select Xcode 16.1
-        run: sudo xcode-select -switch /Applications/Xcode_16.1.app
-
-      - name: Show Xcode version
+      - name: List available Xcode versions
+        run: ls -la /Applications/ | grep "Xcode"
+      
+      - name: Show current Xcode version
         run: xcodebuild -version
         
       - name: Show build settings
