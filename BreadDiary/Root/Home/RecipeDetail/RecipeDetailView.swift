@@ -33,7 +33,7 @@ struct RecipeDetailView: View {
             
             Section {
                 Button(action: {
-                    store.send(.save)
+                    store.send(.saveNewEntry)
                 }) {
                     Text("Save recipe")
                         .frame(maxWidth: .infinity)
