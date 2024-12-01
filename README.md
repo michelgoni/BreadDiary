@@ -1,8 +1,6 @@
 # 🍞 BreadDiary
 
 > ⚠️ **Note: This project is currently a work in progress**
-> 
-> Active development is happening in the `develop` branch
 
 A beautiful iOS app to track and manage your bread baking journey, built with SwiftUI and The Composable Architecture.
 
