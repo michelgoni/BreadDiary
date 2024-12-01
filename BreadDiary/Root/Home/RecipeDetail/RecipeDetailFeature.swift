@@ -51,6 +51,7 @@ struct RecipeDetailFeature {
         case deleteButtonTapped
         case confirmDeletion
         case dismissDeletion
+        case delegate(Delegate)
         
         enum TimeField {
             case motherDoughRefreshed
@@ -62,6 +63,10 @@ struct RecipeDetailFeature {
         
         enum RatingField {
             case crust, crumb, rise, scoring, taste, overall
+        }
+        
+        enum Delegate {
+            case didSave
         }
     }
     
@@ -86,6 +91,8 @@ struct RecipeDetailFeature {
             }
         }
     }
+    
+    @Dependency(\.homeClient) var homeClient
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -218,19 +225,27 @@ struct RecipeDetailFeature {
                 return .none
             case .saveNewEntry:
                 return .run { [entry = state.entry] send in
-                    // Here you would implement the actual saving logic
-                    // For example, saving to CoreData or your storage mechanism
-                    try await Task.sleep(for: .seconds(0.5))
-                    await send(.saveNewEntryResponse(.success(true)))
+                    do {
+                        var entries = try await homeClient.fetch()
+                        entries.append(entry)
+                        try await homeClient.save(entries)
+                        await send(.saveNewEntryResponse(.success(true)))
+                    } catch {
+                        await send(.saveNewEntryResponse(.failure(error)))
+                    }
                 }
                 
             case .saveNewEntryResponse(.success):
-                // Handle successful save
+                // Recipe saved successfully
                 return .none
                 
             case .saveNewEntryResponse(.failure):
                 // Handle save failure
                 return .none
+                
+            case .delegate:
+                return .none
+                
             case .deleteButtonTapped:
                 state.isShowingDeleteConfirmation = true
                 return .none
