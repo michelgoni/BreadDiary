@@ -16,6 +16,11 @@ struct RecipeDetailFeature {
         var entry: Entry
         @Presents var destination: Destination.State?
         var isShowingDeleteConfirmation = false
+        var delegate: Delegate?
+        
+        enum Delegate: Equatable {
+            case didSave
+        }
     }
     
     private let dateFormatter: DateFormatter = {
@@ -236,7 +241,7 @@ struct RecipeDetailFeature {
                 }
                 
             case .saveNewEntryResponse(.success):
-                // Recipe saved successfully
+                state.delegate = .didSave
                 return .none
                 
             case .saveNewEntryResponse(.failure):

@@ -4,6 +4,7 @@ import ComposableArchitecture
 
 struct RecipeDetailView: View {
     let store: StoreOf<RecipeDetailFeature>
+    @Environment(\.dismiss) private var dismiss
     
     private var isSaveEnabled: Bool {
         !store.entry.name.isEmpty && store.entry.entryDate <= Date()
@@ -48,6 +49,14 @@ struct RecipeDetailView: View {
             }
         }
         .navigationTitle(store.mode == .create ? "New Recipe" : "Edit Recipe")
+        .onChange(of: store.delegate) { _, delegate in
+            if let delegate {
+                switch delegate {
+                case .didSave:
+                    dismiss()
+                }
+            }
+        }
         .alert(
             "Delete Recipe",
             isPresented: .init(
