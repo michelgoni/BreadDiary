@@ -87,7 +87,33 @@ struct HomeFeature {
                 }
                 return .none
                 
-            case .search, .destination:
+            case .search:
+                return .none
+                
+            case .destination(.dismiss):
+                return .send(.fetchHomeData)
+                
+            case let .destination(.presented(.recipeDetail(.delegate(.didDelete)))):
+                if case let .recipeDetail(detailState) = state.destination {
+                    state.destination = nil
+                    return .run { [entry = detailState.entry] send in
+                        do {
+                            var entries = try await homeClient.fetch()
+                            entries.removeAll { $0.id == entry.id }
+                            try await homeClient.save(entries)
+                            await send(.fetchHomeData)
+                        } catch {
+                            // Handle error if needed
+                        }
+                    }
+                }
+                return .none
+                
+            case let .destination(.presented(.recipeDetail(.delegate(.didSave)))):
+                state.destination = nil
+                return .send(.fetchHomeData)
+                
+            case .destination:
                 return .none
                 
             case .addNewRecipeTapped:
@@ -115,6 +141,7 @@ struct HomeFeature {
                 
             case .favorite:
                 return .none
+            
             }
         }
         .ifLet(\.$destination, action: \.destination) {

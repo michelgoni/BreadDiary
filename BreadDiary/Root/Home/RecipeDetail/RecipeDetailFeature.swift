@@ -20,6 +20,7 @@ struct RecipeDetailFeature {
         
         enum Delegate: Equatable {
             case didSave
+            case didDelete
         }
     }
     
@@ -57,6 +58,7 @@ struct RecipeDetailFeature {
         case confirmDeletion
         case dismissDeletion
         case delegate(Delegate)
+        case didDelete
         
         enum TimeField {
             case motherDoughRefreshed
@@ -72,6 +74,7 @@ struct RecipeDetailFeature {
         
         enum Delegate {
             case didSave
+            case didDelete
         }
     }
     
@@ -232,7 +235,11 @@ struct RecipeDetailFeature {
                 return .run { [entry = state.entry] send in
                     do {
                         var entries = try await homeClient.fetch()
-                        entries.append(entry)
+                        if let index = entries.firstIndex(where: { $0.id == entry.id }) {
+                            entries[index] = entry
+                        } else {
+                            entries.append(entry)
+                        }
                         try await homeClient.save(entries)
                         await send(.saveNewEntryResponse(.success(true)))
                     } catch {
@@ -257,10 +264,15 @@ struct RecipeDetailFeature {
             
             case .confirmDeletion:
                 state.isShowingDeleteConfirmation = false
+                state.delegate = .didDelete
                 return .none
             
             case .dismissDeletion:
                 state.isShowingDeleteConfirmation = false
+                return .none
+            
+            case .didDelete:
+                state.delegate = .didDelete
                 return .none
             }
         }

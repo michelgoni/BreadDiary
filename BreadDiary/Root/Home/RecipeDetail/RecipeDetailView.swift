@@ -52,7 +52,7 @@ struct RecipeDetailView: View {
         .onChange(of: store.delegate) { _, delegate in
             if let delegate {
                 switch delegate {
-                case .didSave:
+                case .didSave, .didDelete:
                     dismiss()
                 }
             }
