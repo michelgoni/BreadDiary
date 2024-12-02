@@ -264,8 +264,16 @@ struct RecipeDetailFeature {
             
             case .confirmDeletion:
                 state.isShowingDeleteConfirmation = false
-                state.delegate = .didDelete
-                return .none
+                return .run { [entry = state.entry] send in
+                    do {
+                        var entries = try await homeClient.fetch()
+                        entries.removeAll(where: { $0.id == entry.id })
+                        try await homeClient.save(entries)
+                        await send(.delegate(.didDelete))
+                    } catch {
+                        // Handle delete failure
+                    }
+                }
             
             case .dismissDeletion:
                 state.isShowingDeleteConfirmation = false

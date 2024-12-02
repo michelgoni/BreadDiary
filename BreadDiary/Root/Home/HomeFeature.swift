@@ -95,13 +95,18 @@ struct HomeFeature {
                 
             case let .destination(.presented(.recipeDetail(.delegate(.didDelete)))):
                 if case let .recipeDetail(detailState) = state.destination {
+                    return .send(.deleteEntry(detailState.entry))
+                }
+                return .none
+                
+            case let .deleteEntry(entry):
+                if let index = state.entries.firstIndex(where: { $0.id == entry.id }) {
+                    state.entries.remove(at: index)
                     state.destination = nil
-                    return .run { [entry = detailState.entry] send in
+                    return .run { [entries = state.entries] send in
                         do {
-                            var entries = try await homeClient.fetch()
-                            entries.removeAll { $0.id == entry.id }
-                            try await homeClient.save(entries)
-                            await send(.fetchHomeData)
+                            try await homeClient.save(Array(entries))
+                            await send(.search(.updateEntries(entries)))
                         } catch {
                             // Handle error if needed
                         }
@@ -129,13 +134,6 @@ struct HomeFeature {
                 if case let .recipeDetail(detailState) = state.destination {
                     state.destination = nil
                     return .send(.deleteEntry(detailState.entry))
-                }
-                return .none
-                
-            case let .deleteEntry(entry):
-                if let index = state.entries.firstIndex(where: { $0.id == entry.id }) {
-                    state.entries.remove(at: index)
-                    return .send(.search(.updateEntries(state.entries)))
                 }
                 return .none
                 
