@@ -73,7 +73,7 @@ final class HomeFeatureTests: XCTestCase {
     }
     
     @MainActor
-    func test_addNewRecipe() async {
+    func test_createRecipe() async {
         let store = TestStore(
             initialState: HomeFeature.State(
                 entries: [],
@@ -85,11 +85,9 @@ final class HomeFeatureTests: XCTestCase {
         store.exhaustivity = .off
         await store.send(.addNewRecipeTapped)
         
-        // Then verify only the important parts of state
         XCTAssertNotNil(store.state.destination)
         if case let .recipeDetail(detailState) = store.state.destination {
             XCTAssertEqual(detailState.mode, .create)
-            // Entry should exist but we don't care about its specific UUID/Date values
             XCTAssertNotNil(detailState.entry)
         } else {
             XCTFail("Expected recipe detail destination")
@@ -151,6 +149,8 @@ final class HomeFeatureTests: XCTestCase {
         ) {
             HomeFeature()
         }
+        
+        store.exhaustivity = .off
         
         await store.send(.destination(.dismiss)) {
             $0.destination = nil
@@ -247,5 +247,50 @@ final class HomeFeatureTests: XCTestCase {
         await store.receive(\.search.updateEntries) {
             $0.searchState.entries = []
         }
+    }
+    
+    @MainActor
+    func test_createAndSaveRecipe() async {
+        let testEntry = Entry(
+            entryDate: Date(),
+            isFavorite: false,
+            rating: 5,
+            name: "New Test Bread",
+            id: UUID(),
+            evaluation: 5
+        )
+        
+        let store = TestStore(
+            initialState: HomeFeature.State(
+                entries: [],
+                destination: nil
+            )
+        ) {
+            HomeFeature()
+        } withDependencies: {
+            $0.homeClient.save = { _ in }
+            $0.homeClient.fetch = { [testEntry] }
+        }
+        
+        store.exhaustivity = .off
+
+        // Trigger the creation of a new recipe
+        await store.send(.addNewRecipeTapped)
+
+        // Send save action
+        await store.send(.destination(.presented(.recipeDetail(.saveNewEntry))))
+        
+        // Send delegate action which triggers fetch
+        await store.send(.destination(.presented(.recipeDetail(.delegate(.didSave)))))
+        
+        // Wait for fetch to complete
+        await store.send(.fetchHomeData)
+        await store.receive(\.homeDataResponse) {
+            $0.entries = IdentifiedArray(uniqueElements: [testEntry])
+        }
+
+        // Verify the final state
+        XCTAssertEqual(store.state.entries.count, 1)
+        XCTAssertEqual(store.state.entries.first?.name, "New Test Bread")
     }
 }
