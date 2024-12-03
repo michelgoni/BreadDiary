@@ -33,16 +33,16 @@ jobs:
     
     - name: Inspect project.pbxproj
       run: |
+        echo "=== First 20 lines ==="
         head -n 20 BreadDiary.xcodeproj/project.pbxproj
-        echo "..."
+        echo "\n=== Last 20 lines ==="
         tail -n 20 BreadDiary.xcodeproj/project.pbxproj
-    
-    - name: Copy project to temporary location
-      run: cp -r BreadDiary.xcodeproj /tmp/BreadDiary.xcodeproj
-    
-    - name: Open project in Xcode
-      run: open BreadDiary.xcodeproj
-    
+        
+    - name: Check project structure
+      run: |
+        echo "=== Project Directory Structure ==="
+        find BreadDiary.xcodeproj -type f
+        
     - name: Show Available Schemes
       run: xcodebuild -list -project BreadDiary.xcodeproj -verbose
         
