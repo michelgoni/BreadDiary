@@ -25,23 +25,43 @@ jobs:
     - name: Show Xcode Version
       run: xcodebuild -version
     
-    - name: Check file permissions
-      run: ls -la BreadDiary.xcodeproj
+    - name: Check file permissions and structure
+      run: |
+        echo "=== File Permissions ==="
+        ls -la BreadDiary.xcodeproj
+        echo "\n=== Project Structure ==="
+        find BreadDiary.xcodeproj -type f -ls
     
-    - name: Validate project.pbxproj with plutil
-      run: plutil -lint BreadDiary.xcodeproj/project.pbxproj
-    
+    - name: Validate project file format
+      run: |
+        echo "=== Project File Validation ==="
+        plutil -p BreadDiary.xcodeproj/project.pbxproj
+        
+    - name: Extract isa keys
+      run: |
+        echo "=== ISA Keys in project.pbxproj ==="
+        grep -A 2 "isa" BreadDiary.xcodeproj/project.pbxproj || true
+        
+    - name: Convert project to XML for inspection
+      run: |
+        echo "=== Converting to XML for inspection ==="
+        plutil -convert xml1 -o /tmp/project.xml BreadDiary.xcodeproj/project.pbxproj
+        head -n 50 /tmp/project.xml
+        
+    - name: Backup original project
+      run: cp -a BreadDiary.xcodeproj/project.pbxproj BreadDiary.xcodeproj/project.pbxproj.bak
+      
+    - name: Try to repair project format
+      run: |
+        plutil -convert json -r -o /tmp/project.json BreadDiary.xcodeproj/project.pbxproj || true
+        plutil -convert xml1 -o /tmp/project_fixed.xml /tmp/project.json || true
+        
     - name: Inspect project.pbxproj
       run: |
         echo "=== First 20 lines ==="
         head -n 20 BreadDiary.xcodeproj/project.pbxproj
         echo "\n=== Last 20 lines ==="
         tail -n 20 BreadDiary.xcodeproj/project.pbxproj
-        
-    - name: Check project structure
-      run: |
-        echo "=== Project Directory Structure ==="
-        find BreadDiary.xcodeproj -type f
         
     - name: Show Available Schemes
       run: xcodebuild -list -project BreadDiary.xcodeproj -verbose
