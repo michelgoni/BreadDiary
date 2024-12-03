@@ -22,27 +22,18 @@ jobs:
     - name: Verify Xcode Selection
       run: xcode-select -p
     
-    - name: List Xcode Project Structure
-      run: |
-        ls -la
-        find . -name "*.xcodeproj" -o -name "*.xcworkspace"
-        
     - name: Show Xcode Version
       run: xcodebuild -version
         
-    - name: Resolve Dependencies
-      run: set -o pipefail && xcodebuild -project BreadDiary.xcodeproj -resolvePackageDependencies
-    
     - name: Show Available Schemes
-      run: xcodebuild -list
+      run: xcodebuild -list -project BreadDiary.xcodeproj
         
     - name: Build and Test
       run: |
-        set -o pipefail && xcodebuild test \
+        set -o pipefail && xcodebuild clean test \
+          -project BreadDiary.xcodeproj \
           -scheme BreadDiary \
-          -scheme BreadDiaryTests \
           -destination 'platform=iOS Simulator,name=iPhone 14,OS=18.0' \
-          -skipPackagePluginValidation \
           CODE_SIGN_IDENTITY="" \
           CODE_SIGNING_REQUIRED=NO \
           CODE_SIGNING_ALLOWED=NO \
