@@ -24,9 +24,27 @@ jobs:
     
     - name: Show Xcode Version
       run: xcodebuild -version
-        
+    
+    - name: Check file permissions
+      run: ls -la BreadDiary.xcodeproj
+    
+    - name: Validate project.pbxproj with plutil
+      run: plutil -lint BreadDiary.xcodeproj/project.pbxproj
+    
+    - name: Inspect project.pbxproj
+      run: |
+        head -n 20 BreadDiary.xcodeproj/project.pbxproj
+        echo "..."
+        tail -n 20 BreadDiary.xcodeproj/project.pbxproj
+    
+    - name: Copy project to temporary location
+      run: cp -r BreadDiary.xcodeproj /tmp/BreadDiary.xcodeproj
+    
+    - name: Open project in Xcode
+      run: open BreadDiary.xcodeproj
+    
     - name: Show Available Schemes
-      run: xcodebuild -list -project BreadDiary.xcodeproj
+      run: xcodebuild -list -project BreadDiary.xcodeproj -verbose
         
     - name: Build and Test
       run: |
@@ -34,6 +52,7 @@ jobs:
           -project BreadDiary.xcodeproj \
           -scheme BreadDiary \
           -destination 'platform=iOS Simulator,name=iPhone 14,OS=18.0' \
+          -verbose \
           CODE_SIGN_IDENTITY="" \
           CODE_SIGNING_REQUIRED=NO \
           CODE_SIGNING_ALLOWED=NO \
