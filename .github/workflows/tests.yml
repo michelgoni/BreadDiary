@@ -16,8 +16,8 @@ jobs:
       with:
         clean: true
         
-    - name: Select Xcode 16.1
-      run: sudo xcode-select -s /Applications/Xcode_16.1.app/Contents/Developer
+    - name: Select Xcode
+      run: sudo xcode-select -s /Applications/Xcode.app
     
     - name: Verify Xcode Selection
       run: xcode-select -p
@@ -46,9 +46,11 @@ jobs:
       run: |
         set -o pipefail && xcodebuild test \
           -scheme BreadDiary \
-          -destination 'platform=iOS Simulator,name=iPhone 14,OS=17.0' \
+          -scheme BreadDiaryTests \
+          -destination 'platform=iOS Simulator,name=iPhone 14,OS=18.0' \
           -skipPackagePluginValidation \
           CODE_SIGN_IDENTITY="" \
           CODE_SIGNING_REQUIRED=NO \
           CODE_SIGNING_ALLOWED=NO \
           ONLY_ACTIVE_ARCH=YES | xcpretty
+    
