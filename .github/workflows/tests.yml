@@ -19,71 +19,20 @@ jobs:
     - name: Select Xcode
       run: sudo xcode-select -s /Applications/Xcode.app
     
-    - name: Verify Xcode Selection
-      run: xcode-select -p
-    
-    - name: Show Xcode Version
-      run: xcodebuild -version
-    
-    - name: Check file permissions and structure
+    - name: Show Build Settings
       run: |
-        echo "=== File Permissions ==="
-        ls -la BreadDiary.xcodeproj
-        echo "\n=== Project Structure ==="
-        find BreadDiary.xcodeproj -type f -ls
-    
-    - name: Validate project file format
-      run: |
-        echo "=== Project File Validation ==="
-        plutil -p BreadDiary.xcodeproj/project.pbxproj
+        xcodebuild -project BreadDiary.xcodeproj -scheme BreadDiary -showBuildSettings || true
         
-    - name: Extract isa keys
+    - name: Show Available Destinations
       run: |
-        echo "=== ISA Keys in project.pbxproj ==="
-        grep -A 2 "isa" BreadDiary.xcodeproj/project.pbxproj || true
-        
-    - name: Convert project to XML for inspection
-      run: |
-        echo "=== Converting to XML for inspection ==="
-        plutil -convert xml1 -o /tmp/project.xml BreadDiary.xcodeproj/project.pbxproj
-        head -n 50 /tmp/project.xml
-        
-    - name: Backup original project
-      run: cp -a BreadDiary.xcodeproj/project.pbxproj BreadDiary.xcodeproj/project.pbxproj.bak
-      
-    - name: Try to repair project format
-      run: |
-        plutil -convert json -r -o /tmp/project.json BreadDiary.xcodeproj/project.pbxproj || true
-        plutil -convert xml1 -o /tmp/project_fixed.xml /tmp/project.json || true
-        
-    - name: Fix project file format
-      run: |
-        echo "Fixing project file format..."
-        cd BreadDiary.xcodeproj
-        if [ -f "project.pbxproj" ]; then
-          echo "// !$*UTF8*$!" > project.pbxproj.new
-          plutil -convert xml1 project.pbxproj -o - | plutil -convert json -o - - | plutil -convert xml1 -o - - | sed 's/<?xml.*?>//g' >> project.pbxproj.new
-          mv project.pbxproj.new project.pbxproj
-        fi
-        cd ..
-        
-    - name: Inspect project.pbxproj
-      run: |
-        echo "=== First 20 lines ==="
-        head -n 20 BreadDiary.xcodeproj/project.pbxproj
-        echo "\n=== Last 20 lines ==="
-        tail -n 20 BreadDiary.xcodeproj/project.pbxproj
-        
-    - name: Show Available Schemes
-      run: xcodebuild -list -project BreadDiary.xcodeproj -verbose
+        xcodebuild -project BreadDiary.xcodeproj -scheme BreadDiary -showdestinations || true
         
     - name: Build and Test
       run: |
         set -o pipefail && xcodebuild clean test \
           -project BreadDiary.xcodeproj \
           -scheme BreadDiary \
-          -destination 'platform=iOS Simulator,name=iPhone 14,OS=18.0' \
-          -verbose \
+          -destination 'platform=iOS Simulator,name=iPhone 14,OS=17.2' \
           CODE_SIGN_IDENTITY="" \
           CODE_SIGNING_REQUIRED=NO \
           CODE_SIGNING_ALLOWED=NO \
