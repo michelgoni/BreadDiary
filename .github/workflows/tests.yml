@@ -22,12 +22,6 @@ jobs:
     - name: Verify Xcode Selection
       run: xcode-select -p
     
-    - name: Install xcode-project-cleaner
-      run: sudo gem install xcode-project-cleaner
-    
-    - name: Clean Xcode Project
-      run: xcode-project-cleaner BreadDiary.xcodeproj
-    
     - name: List Xcode Project Structure
       run: |
         ls -la
@@ -53,4 +47,3 @@ jobs:
           CODE_SIGNING_REQUIRED=NO \
           CODE_SIGNING_ALLOWED=NO \
           ONLY_ACTIVE_ARCH=YES | xcpretty
-    
