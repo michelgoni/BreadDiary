@@ -17,37 +17,34 @@ jobs:
           clean: true
 
       - name: Select Xcode Version
-        run: sudo xcode-select -s /Applications/Xcode.app
+        run: sudo xcode-select -switch /Applications/Xcode_16.app
 
       - name: Clean DerivedData
         run: rm -rf ~/Library/Developer/Xcode/DerivedData/*
 
-      - name: Validate project.pbxproj Syntax
-        run: |
-          plutil -lint BreadDiary.xcodeproj/project.pbxproj || {
-            echo "Syntax errors detected in project.pbxproj. Attempting to regenerate..."
-            rm -f BreadDiary.xcodeproj/project.pbxproj
-            xcodebuild -project BreadDiary.xcodeproj -list
-          }
+      - name: Resolve Dependencies
+        run: xcodebuild -resolvePackageDependencies -project BreadDiary.xcodeproj
 
-      - name: Regenerate Project If Necessary
-        if: failure()
-        run: |
-          echo "Regenerating project.pbxproj..."
-          rm -rf BreadDiary.xcodeproj/project.pbxproj
-          xcodebuild -project BreadDiary.xcodeproj -list || true
+      - name: Show Build Settings
+        run: xcodebuild -project BreadDiary.xcodeproj -scheme BreadDiary -showBuildSettings
+
+      - name: Show Available Destinations
+        run: xcodebuild -project BreadDiary.xcodeproj -scheme BreadDiary -showdestinations
+
+      - name: Debugging: Validate Syntax
+        run: plutil -lint BreadDiary.xcodeproj/project.pbxproj
 
       - name: Build and Test
         run: |
           set -o pipefail && xcodebuild clean test \
             -project BreadDiary.xcodeproj \
             -scheme BreadDiary \
-            -destination 'platform=iOS Simulator,name=iPhone 14,OS=18.0' \
+            -destination 'platform=iOS Simulator,name=iPhone 14,OS=17.2' \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
             ONLY_ACTIVE_ARCH=YES | xcpretty && exit ${PIPESTATUS[0]}
-      
+
       - name: Debug Info
         if: failure()
         run: |
@@ -55,8 +52,7 @@ jobs:
           xcodebuild clean build-for-testing \
             -project BreadDiary.xcodeproj \
             -scheme BreadDiary \
-            -destination 'platform=iOS Simulator,name=iPhone 14,OS=18.0' \
+            -destination 'platform=iOS Simulator,name=iPhone 14,OS=17.2' \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO \
-            ONLY_ACTIVE_ARCH=YES | xcpretty
+            CODE_SIGNING_ALLOWED=NO
