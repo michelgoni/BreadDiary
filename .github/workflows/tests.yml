@@ -12,44 +12,37 @@ jobs:
     runs-on: macos-13
 
     steps:
+      # Clona el repositorio
       - uses: actions/checkout@v3
         with:
           clean: true
 
-      - name: Select Xcode Version
-        run: sudo xcode-select -switch /Applications/Xcode_16.1.app
+      # Lista versiones disponibles de Xcode
+      - name: List Available Xcode Versions
+        run: ls /Applications/ | grep Xcode
 
+      # Selecciona la versión de Xcode instalada
+      - name: Select Xcode Version
+        run: sudo xcode-select -switch /Applications/Xcode.app
+
+      # Limpia DerivedData
       - name: Clean DerivedData
         run: rm -rf ~/Library/Developer/Xcode/DerivedData/*
 
-      - name: Resolve Dependencies
-        run: xcodebuild -resolvePackageDependencies -project BreadDiary.xcodeproj
+      # Verifica la configuración del proyecto
+      - name: Verify Build Settings
+        run: |
+          xcodebuild -project BreadDiary.xcodeproj -scheme BreadDiary -showBuildSettings
 
-      - name: Show Build Settings
-        run: xcodebuild -project BreadDiary.xcodeproj -scheme BreadDiary -showBuildSettings
+      # Verifica destinos disponibles
+      - name: Verify Available Destinations
+        run: |
+          xcodebuild -project BreadDiary.xcodeproj -scheme BreadDiary -showdestinations
 
-      - name: Show Available Destinations
-        run: xcodebuild -project BreadDiary.xcodeproj -scheme BreadDiary -showdestinations
-
-      - name: Debugging: Validate Syntax
-        run: plutil -lint BreadDiary.xcodeproj/project.pbxproj
-
+      # Construye y ejecuta pruebas
       - name: Build and Test
         run: |
           set -o pipefail && xcodebuild clean test \
-            -project BreadDiary.xcodeproj \
-            -scheme BreadDiary \
-            -destination 'platform=iOS Simulator,name=iPhone 14,OS=17.2' \
-            CODE_SIGN_IDENTITY="" \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO \
-            ONLY_ACTIVE_ARCH=YES | xcpretty && exit ${PIPESTATUS[0]}
-
-      - name: Debug Info
-        if: failure()
-        run: |
-          echo "Debugging build issues..."
-          xcodebuild clean build-for-testing \
             -project BreadDiary.xcodeproj \
             -scheme BreadDiary \
             -destination 'platform=iOS Simulator,name=iPhone 14,OS=17.2' \
