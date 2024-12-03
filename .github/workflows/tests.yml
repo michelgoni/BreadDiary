@@ -17,7 +17,7 @@ jobs:
           clean: true
 
       - name: Select Xcode Version
-        run: sudo xcode-select -switch /Applications/Xcode_16.app
+        run: sudo xcode-select -switch /Applications/Xcode_16.1.app
 
       - name: Clean DerivedData
         run: rm -rf ~/Library/Developer/Xcode/DerivedData/*
@@ -55,4 +55,5 @@ jobs:
             -destination 'platform=iOS Simulator,name=iPhone 14,OS=17.2' \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
+            CODE_SIGNING_ALLOWED=NO \
+            ONLY_ACTIVE_ARCH=YES | xcpretty
