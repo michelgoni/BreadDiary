@@ -56,6 +56,17 @@ jobs:
         plutil -convert json -r -o /tmp/project.json BreadDiary.xcodeproj/project.pbxproj || true
         plutil -convert xml1 -o /tmp/project_fixed.xml /tmp/project.json || true
         
+    - name: Fix project file format
+      run: |
+        echo "Fixing project file format..."
+        cd BreadDiary.xcodeproj
+        if [ -f "project.pbxproj" ]; then
+          echo "// !$*UTF8*$!" > project.pbxproj.new
+          plutil -convert xml1 project.pbxproj -o - | plutil -convert json -o - - | plutil -convert xml1 -o - - | sed 's/<?xml.*?>//g' >> project.pbxproj.new
+          mv project.pbxproj.new project.pbxproj
+        fi
+        cd ..
+        
     - name: Inspect project.pbxproj
       run: |
         echo "=== First 20 lines ==="
