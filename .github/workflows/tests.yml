@@ -18,7 +18,18 @@ jobs:
         with:
           xcode-version: '16.0'
 
+      - name: Clean DerivedData
+        run: |
+          rm -rf ~/Library/Developer/Xcode/DerivedData/*
+
+      - name: Install dependencies
+        run: |
+          xcodebuild -resolvePackageDependencies -project BreadDiary.xcodeproj
+
+      - name: Build for testing
+        run: |
+          xcodebuild build-for-testing -project BreadDiary.xcodeproj -scheme BreadDiaryTests -destination 'platform=iOS Simulator,name=iPhone 15,OS=18.1'
+
       - name: Run tests
         run: |
-          xcodebuild test -project BreadDiary.xcodeproj -scheme BreadDiaryTests -destination 'platform=iOS Simulator,name=iPhone 15,OS=18.1' -only-testing:BreadDiaryTests
-
+          xcodebuild test-without-building -project BreadDiary.xcodeproj -scheme BreadDiaryTests -destination 'platform=iOS Simulator,name=iPhone 15,OS=18.1' -only-testing:BreadDiaryTests
