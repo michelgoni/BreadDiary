@@ -1,0 +1,39 @@
+name: iOS Tests
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: macos-14
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '16.0'
+
+      - name: Clean DerivedData
+        run: |
+          rm -rf ~/Library/Developer/Xcode/DerivedData/*
+
+      - name: Skip macro validation
+        run: |
+          defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
+
+      - name: Install dependencies
+        run: |
+          xcodebuild -resolvePackageDependencies -project BreadDiary.xcodeproj
+
+      - name: Build for testing
+        run: |
+          xcodebuild build-for-testing -project BreadDiary.xcodeproj -scheme BreadDiaryTests -destination 'platform=iOS Simulator,name=iPhone 15,OS=18.1' -skipMacroValidation
+
+      - name: Run tests
+        run: |
+          xcodebuild test-without-building -project BreadDiary.xcodeproj -scheme BreadDiaryTests -destination 'platform=iOS Simulator,name=iPhone 15,OS=18.1' -only-testing:BreadDiaryTests -skipMacroValidation

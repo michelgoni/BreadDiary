@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -35,21 +35,9 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		2DDAF7CD2CFA3F72003859FD /* BreadDiary */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BreadDiary;
-			sourceTree = "<group>";
-		};
-		2DDAF7DE2CFA3F74003859FD /* BreadDiaryTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BreadDiaryTests;
-			sourceTree = "<group>";
-		};
-		2DDAF7E82CFA3F74003859FD /* BreadDiaryUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BreadDiaryUITests;
-			sourceTree = "<group>";
-		};
+		2DDAF7CD2CFA3F72003859FD /* BreadDiary */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = BreadDiary; sourceTree = "<group>"; };
+		2DDAF7DE2CFA3F74003859FD /* BreadDiaryTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = BreadDiaryTests; sourceTree = "<group>"; };
+		2DDAF7E82CFA3F74003859FD /* BreadDiaryUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = BreadDiaryUITests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +184,7 @@
 				};
 			};
 			buildConfigurationList = 2DDAF7C62CFA3F72003859FD /* Build configuration list for PBXProject "BreadDiary" */;
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -208,7 +197,6 @@
 				2DDAF8072CFA4180003859FD /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				2DDAF84C2CFA425E003859FD /* XCRemoteSwiftPackageReference "swift-tagged" */,
 			);
-			preferredProjectObjectVersion = 56;
 			productRefGroup = 2DDAF7CC2CFA3F72003859FD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
