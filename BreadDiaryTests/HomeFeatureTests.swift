@@ -293,4 +293,55 @@ final class HomeFeatureTests: XCTestCase {
         XCTAssertEqual(store.state.entries.count, 1)
         XCTAssertEqual(store.state.entries.first?.name, "New Test Bread")
     }
+    
+    @MainActor
+    func test_sheetDismissal_afterSaving() async {
+        let entry = Entry(
+            entryDate: Date(),
+            name: "Test Bread",
+            id: UUID()
+        )
+        let entries = IdentifiedArrayOf<Entry>()
+        
+        let store = TestStore(
+            initialState: HomeFeature.State(
+                destination: .recipeDetail(.init(mode: .create, entry: entry))
+            )
+        ) {
+            HomeFeature()
+        } withDependencies: {
+            $0.homeClient.fetch = { Array(entries) }
+        }
+        
+        store.exhaustivity = .off
+        
+        await store.send(.destination(.presented(.recipeDetail(.delegate(.didSave))))) {
+            $0.destination = nil
+        }
+        
+        await store.receive(\.fetchHomeData) {
+            $0.isLoading = true
+        }
+    }
+    
+    @MainActor
+    func test_sheetDismissal_onManualDismiss() async {
+        let entry = Entry(
+            entryDate: Date(),
+            name: "Test Bread",
+            id: UUID()
+        )
+        
+        let store = TestStore(
+            initialState: HomeFeature.State(
+                destination: .recipeDetail(.init(mode: .create, entry: entry))
+            )
+        ) {
+            HomeFeature()
+        }
+        
+        await store.send(.destination(.dismiss)) {
+            $0.destination = nil
+        }
+    }
 }
