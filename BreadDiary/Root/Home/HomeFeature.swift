@@ -91,7 +91,8 @@ struct HomeFeature {
                 return .none
                 
             case .destination(.dismiss):
-                return .send(.fetchHomeData)
+                state.destination = nil
+                return .none
                 
             case let .destination(.presented(.recipeDetail(.delegate(.didDelete)))):
                 if case let .recipeDetail(detailState) = state.destination {
@@ -116,7 +117,9 @@ struct HomeFeature {
                 
             case let .destination(.presented(.recipeDetail(.delegate(.didSave)))):
                 state.destination = nil
-                return .send(.fetchHomeData)
+                return .run { send in 
+                    await send(.fetchHomeData)
+                }
                 
             case .destination:
                 return .none

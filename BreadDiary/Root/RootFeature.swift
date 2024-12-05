@@ -44,6 +44,31 @@ struct RootFeature {
         }
     }
     
+
+    
+    static func previewCreateStore() -> StoreOf<RootFeature> {
+        
+        let state = RootFeature.State(
+            homeState: HomeFeature.State(
+                destination: .recipeDetail(
+                    RecipeDetailFeature.State(
+                        mode: .create,
+                        entry: .empty()
+                    )
+                )
+            )
+        )
+        
+        return Store(
+            initialState: state,
+            reducer: {
+                RootFeature()
+            }
+        )
+            
+    }
+
+    
     static func previewStore() -> StoreOf<RootFeature> {
         let store = Store(
             initialState: RootFeature.State(
