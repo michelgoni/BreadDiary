@@ -32,13 +32,16 @@ struct MyBreadTCADiaryApp: App {
     }
 }
 
-#Preview {
+#Preview("Root") {
     RootView(
-        store: InitialAppFeature
-            .previewStore()
-            .scope(
-            state: \.rootState,
-            action: \.rootAction
-        )
+        store: RootFeature.previewStore()
     )
 }
+
+#Preview("Add recipe pushed") {
+    RootView(
+        store: RootFeature.previewCreateStore()
+    )
+}
+
+
