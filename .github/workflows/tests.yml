@@ -22,13 +22,17 @@ jobs:
         run: |
           rm -rf ~/Library/Developer/Xcode/DerivedData/*
 
+      - name: Skip macro validation
+        run: |
+          defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
+
       - name: Install dependencies
         run: |
           xcodebuild -resolvePackageDependencies -project BreadDiary.xcodeproj
 
       - name: Build for testing
         run: |
-          xcodebuild build-for-testing -project BreadDiary.xcodeproj -scheme BreadDiaryTests -destination 'platform=iOS Simulator,name=iPhone 15,OS=18.1'
+          xcodebuild build-for-testing -project BreadDiary.xcodeproj -scheme BreadDiaryTests -destination 'platform=iOS Simulator,name=iPhone 15,OS=18.1' -skipMacroValidation
 
       - name: Run tests
         run: |
