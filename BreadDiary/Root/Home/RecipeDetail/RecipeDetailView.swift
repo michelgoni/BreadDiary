@@ -13,12 +13,12 @@ struct RecipeDetailView: View {
     var body: some View {
         Form {
             BasicInfoSectionView(store: store)
-            Section(header: Text("Ingredients")) {
+            Section(header: Text("Ingredientes")) {
                 TextEditor(text: .init(
                     get: { store.entry.ingredientsText },
                     set: { store.send(.setIngredients($0)) }
                 ))
-                .frame(minHeight: 100)
+                .frame(minHeight: 50)
             }
             ProcessSectionView(store: store)
             RatingsSectionView(store: store)

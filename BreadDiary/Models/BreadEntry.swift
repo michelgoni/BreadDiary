@@ -68,7 +68,8 @@ struct Entry: Codable, Identifiable, Equatable {
             ingredients = IdentifiedArrayOf(uniqueElements: newValue
                 .components(separatedBy: "\n")
                 .filter { !$0.isEmpty }
-                .map { Ingredient(id: Tagged<Ingredient, UUID>(rawValue: UUID()), ingredient: $0.trimmingCharacters(in: .whitespaces)) }
+                .map { Ingredient(id: Tagged<Ingredient, UUID>(rawValue: UUID()),
+                                  ingredient: $0.trimmingCharacters(in: .whitespaces)) }
             )
         }
     }
