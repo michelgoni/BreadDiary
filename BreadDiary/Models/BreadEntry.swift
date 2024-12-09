@@ -59,11 +59,26 @@ struct Entry: Codable, Identifiable, Equatable {
     var scoreRating: Int = Int.zero
     var tasteRating: Int = .zero
     var evaluation: Int = .zero
+    
+    var ingredientsText: String {
+        get {
+            ingredients.map(\.ingredient).joined(separator: "\n")
+        }
+        set {
+            ingredients = IdentifiedArrayOf(uniqueElements: newValue
+                .components(separatedBy: "\n")
+                .filter { !$0.isEmpty }
+                .map { Ingredient(id: Tagged<Ingredient, UUID>(rawValue: UUID()), ingredient: $0.trimmingCharacters(in: .whitespaces)) }
+            )
+        }
+    }
 }
 
 struct Ingredient: Codable, Identifiable, Equatable {
     let id: Tagged<Self, UUID>
     var ingredient = ""
+    
+  
 }
 
 extension Entry {
@@ -117,4 +132,3 @@ extension BreadEntry {
         )
     }
 }
-

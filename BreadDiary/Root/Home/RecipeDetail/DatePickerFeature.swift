@@ -16,7 +16,7 @@ struct DatePickerFeature {
         var field: RecipeDetailFeature.Action.TimeField
     }
     
-    enum Action {
+    enum Action: Equatable {
         case dateChanged(Date)
         case doneButtonTapped
         case delegate(Delegate)

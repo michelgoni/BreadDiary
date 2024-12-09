@@ -2,10 +2,11 @@ import ComposableArchitecture
 import Foundation
 import PhotosUI
 import SwiftUI
+import Tagged
 
 @Reducer
 struct RecipeDetailFeature {
-    enum Mode {
+    enum Mode: Equatable {
         case edit
         case create
     }
@@ -31,7 +32,7 @@ struct RecipeDetailFeature {
         return formatter
     }()
     
-    enum Action {
+    enum Action: Equatable {
         case autolysisTimeChanged(String)
         case bakingTimeChanged(String)
         case steamUsedModified(Bool)
@@ -59,8 +60,9 @@ struct RecipeDetailFeature {
         case dismissDeletion
         case delegate(Delegate)
         case didDelete
+        case setIngredients(String)
         
-        enum TimeField {
+        enum TimeField: Equatable {
             case motherDoughRefreshed
             case prefermentPrepared
             case autolysis
@@ -68,11 +70,11 @@ struct RecipeDetailFeature {
             case shaping
         }
         
-        enum RatingField {
+        enum RatingField: Equatable {
             case crust, crumb, rise, scoring, taste, overall
         }
         
-        enum Delegate {
+        enum Delegate: Equatable {
             case didSave
             case didDelete
         }
@@ -85,7 +87,7 @@ struct RecipeDetailFeature {
             case photoPicker(PhotoPickerFeature.State)
         }
         
-        enum Action {
+        enum Action: Equatable {
             case datePicker(DatePickerFeature.Action)
             case photoPicker(PhotoPickerFeature.Action)
         }
@@ -281,6 +283,13 @@ struct RecipeDetailFeature {
             
             case .didDelete:
                 state.delegate = .didDelete
+                return .none
+            
+            case let .setIngredients(ingredients):
+                let ingredientsArray = ingredients.components(separatedBy: "\n")
+                    .filter { !$0.isEmpty }
+                    .map { Ingredient(id: Tagged<Ingredient, UUID>(rawValue: UUID()), ingredient: $0.trimmingCharacters(in: .whitespaces)) }
+                state.entry.ingredients = IdentifiedArrayOf(uniqueElements: ingredientsArray)
                 return .none
             }
         }
