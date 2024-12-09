@@ -18,4 +18,10 @@ struct CalendarFeature {
             }
         }
     }
+
+    static func previewStore() -> StoreOf<CalendarFeature> {
+        Store(initialState: CalendarFeature.State()) {
+            CalendarFeature()
+        }
+    }
 }

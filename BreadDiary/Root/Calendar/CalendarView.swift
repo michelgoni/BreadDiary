@@ -5,8 +5,13 @@ struct CalendarView: View {
     let store: StoreOf<CalendarFeature>
     
     var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
-            Text(viewStore.title)
+            Text(store.title)
         }
-    }
+}
+
+
+#Preview("Calendar") {
+    CalendarView(
+        store: CalendarFeature.previewStore()
+    )
 }
