@@ -5,13 +5,24 @@ struct CalendarView: View {
     let store: StoreOf<CalendarFeature>
     
     var body: some View {
-            Text(store.title)
+        VStack {
+            Text("Calendar").font(.largeTitle)
+            MultiDatePicker(
+                "",
+                selection: .constant(Set(store.recipeDates.map { Calendar.current.dateComponents([.year, .month, .day], from: $0) }))
+            )
+            .datePickerStyle(.graphical)
+            .tint(.black)
+            .frame(maxWidth: .infinity, maxHeight: 400)
         }
+        .padding()
+    }
 }
-
 
 #Preview("Calendar") {
     CalendarView(
-        store: CalendarFeature.previewStore()
+        store: Store(initialState: CalendarFeature.State.mockState()) {
+            CalendarFeature()
+        }
     )
 }
