@@ -17,6 +17,17 @@ struct CalendarView: View {
             Divider()
                 .background(.black)
                 .frame(height: 2)
+            VStack(alignment: .leading) {
+                Text("• Dummy Recipe 1")
+                    .padding(.vertical, 4)
+                Text("• Dummy Recipe 2")
+                    .padding(.vertical, 4)
+                Text("• Dummy Recipe 3")
+                    .padding(.vertical, 4)
+            }
+            .padding()
+            .background(Color.white)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding()
     }
