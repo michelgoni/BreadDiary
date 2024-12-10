@@ -14,6 +14,9 @@ struct CalendarView: View {
             .datePickerStyle(.graphical)
             .tint(.black)
             .frame(maxWidth: .infinity, maxHeight: 400)
+            Divider()
+                .background(.black)
+                .frame(height: 2)
         }
         .padding()
     }
