@@ -21,13 +21,15 @@ struct CalendarFeature {
             let dates = [date1, date2, date3]
             let dateComponents = Set(dates.map { calendar.dateComponents([.year, .month, .day], from: $0) })
             
+            var recipesByDate: [Date: String] = [:]
+            recipesByDate[date1] = "Sourdough Bread"
+            recipesByDate[date2] = "Rye Bread"
+            recipesByDate[date3] = "Whole Wheat Bread"
+            
             return State(
+                selectedDate: today,
                 recipeDates: dateComponents,
-                recipesByDate: [
-                    date1: "Sourdough Bread",
-                    date2: "Rye Bread",
-                    date3: "Whole Wheat Bread"
-                ]
+                recipesByDate: recipesByDate
             )
         }
     }
