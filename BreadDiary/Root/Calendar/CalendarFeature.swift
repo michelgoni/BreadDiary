@@ -5,23 +5,35 @@ import Foundation
 struct CalendarFeature {
     @ObservableState
     struct State: Equatable {
-        var recipeDates: [Date] = []
-        var selectedDate: Date?
+        var selectedDate = Date()
+        var recipeDates: Set<DateComponents>
+        var recipesByDate: [Date: String]
         
         static func mockState() -> State {
-            var state = State()
-            // Create some mock dates for today and tomorrow
-            let dayBeforeYesterday = Calendar.current.date(byAdding: .day, value: -5, to: Date())!
-            let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-            state.recipeDates = [Date(), yesterday, dayBeforeYesterday]
-            return state
+            let calendar = Calendar.current
+            let today = Date()
+            
+            // Create three specific dates
+            let date1 = calendar.date(byAdding: .day, value: -2, to: today)!
+            let date2 = calendar.date(byAdding: .day, value: -5, to: today)!
+            let date3 = calendar.date(byAdding: .day, value: -7, to: today)!
+            
+            let dates = [date1, date2, date3]
+            let dateComponents = Set(dates.map { calendar.dateComponents([.year, .month, .day], from: $0) })
+            
+            return State(
+                recipeDates: dateComponents,
+                recipesByDate: [
+                    date1: "Sourdough Bread",
+                    date2: "Rye Bread",
+                    date3: "Whole Wheat Bread"
+                ]
+            )
         }
     }
     
-    enum Action: Equatable {
+    enum Action {
         case dateSelected(Date)
-        case loadRecipeDates
-        case recipeDatesLoaded([Date])
     }
     
     var body: some ReducerOf<Self> {
@@ -30,20 +42,7 @@ struct CalendarFeature {
             case let .dateSelected(date):
                 state.selectedDate = date
                 return .none
-                
-            case .loadRecipeDates:
-                return .none  // Here you would load the actual recipe dates from your data source
-                
-            case let .recipeDatesLoaded(dates):
-                state.recipeDates = dates
-                return .none
             }
-        }
-    }
-
-    static func previewStore() -> StoreOf<CalendarFeature> {
-        Store(initialState: CalendarFeature.State.mockState()) {
-            CalendarFeature()
         }
     }
 }

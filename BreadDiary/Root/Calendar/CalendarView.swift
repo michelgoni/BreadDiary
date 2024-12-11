@@ -7,23 +7,32 @@ struct CalendarView: View {
     var body: some View {
         VStack {
             Text("Calendar").font(.largeTitle)
-            MultiDatePicker(
+            DatePicker(
                 "",
-                selection: .constant(Set(store.recipeDates.map { Calendar.current.dateComponents([.year, .month, .day], from: $0) }))
+                selection: Binding(
+                    get: { store.state.selectedDate },
+                    set: { store.send(.dateSelected($0)) }
+                ),
+                in: ...Date(),
+                displayedComponents: [.date]
             )
             .datePickerStyle(.graphical)
             .tint(.black)
             .frame(maxWidth: .infinity, maxHeight: 400)
+            
             Divider()
                 .background(.black)
                 .frame(height: 2)
+            
             VStack(alignment: .leading) {
-                Text("• Dummy Recipe 1")
-                    .padding(.vertical, 4)
-                Text("• Dummy Recipe 2")
-                    .padding(.vertical, 4)
-                Text("• Dummy Recipe 3")
-                    .padding(.vertical, 4)
+                if let recipe = store.state.recipesByDate[store.state.selectedDate] {
+                    Text("• \(recipe)")
+                        .padding(.vertical, 4)
+                } else {
+                    Text("No recipe for this date")
+                        .padding(.vertical, 4)
+                        .foregroundColor(.gray)
+                }
             }
             .padding()
             .background(Color.white)
