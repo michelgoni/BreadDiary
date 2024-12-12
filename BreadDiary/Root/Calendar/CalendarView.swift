@@ -32,7 +32,7 @@ struct CalendarView: View {
                     Text("• \(recipe)")
                         .padding(.vertical, 4)
                         .onTapGesture {
-                            print("Selected recipe: \(recipe)")
+                            store.send(.recipeSelected(recipe))
                         }
                         .foregroundColor(.black)
                 } else {
@@ -46,6 +46,16 @@ struct CalendarView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding()
+        .sheet(
+            store: store.scope(state: \.$destination,
+                               action: \.destination),
+            state: /CalendarFeature.Destination.State.recipeDetail,
+            action: CalendarFeature.Destination.Action.recipeDetail
+        ) { store in
+            NavigationStack {
+                RecipeDetailView(store: store)
+            }
+        }
     }
 }
 
