@@ -29,7 +29,7 @@ struct CalendarView: View {
                 let selectedComponents = calendar.dateComponents([.year, .month, .day], from: store.selectedDate)
                 
                 if let recipe = store.recipesByDate.first(where: { calendar.dateComponents([.year, .month, .day], from: $0.key) == selectedComponents })?.value {
-                    Text("• \(recipe)")
+                    Text("• \(recipe.name)")
                         .padding(.vertical, 4)
                         .onTapGesture {
                             store.send(.recipeSelected(recipe))
@@ -55,6 +55,9 @@ struct CalendarView: View {
             NavigationStack {
                 RecipeDetailView(store: store)
             }
+        }
+        .task {
+            store.send(.fetchRecipes)
         }
     }
 }
