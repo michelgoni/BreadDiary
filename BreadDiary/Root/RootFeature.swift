@@ -7,13 +7,12 @@
 import ComposableArchitecture
 
 @Reducer
-
 struct RootFeature {
     @ObservableState
     struct State: Equatable {
         var selectedTab: Tab = .home
         var homeState = HomeFeature.State()
-        var calendarState = CalendarFeature.State()
+        var calendarState = CalendarFeature.State(recipeDates: [], recipesByDate: [:])
     }
     
     enum Action {
@@ -44,10 +43,7 @@ struct RootFeature {
         }
     }
     
-
-    
     static func previewCreateStore() -> StoreOf<RootFeature> {
-        
         let state = RootFeature.State(
             homeState: HomeFeature.State(
                 destination: .recipeDetail(
@@ -56,7 +52,8 @@ struct RootFeature {
                         entry: .empty()
                     )
                 )
-            )
+            ),
+            calendarState: CalendarFeature.State.mockState()
         )
         
         return Store(
@@ -65,14 +62,13 @@ struct RootFeature {
                 RootFeature()
             }
         )
-            
     }
-
     
     static func previewStore() -> StoreOf<RootFeature> {
         let store = Store(
             initialState: RootFeature.State(
-                homeState: HomeFeature.State(isLoading: true)
+                homeState: HomeFeature.State(isLoading: true),
+                calendarState: CalendarFeature.State.mockState()
             ),
             reducer: {
                 RootFeature()
