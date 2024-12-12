@@ -31,6 +31,10 @@ struct CalendarView: View {
                 if let recipe = store.recipesByDate.first(where: { calendar.dateComponents([.year, .month, .day], from: $0.key) == selectedComponents })?.value {
                     Text("• \(recipe)")
                         .padding(.vertical, 4)
+                        .onTapGesture {
+                            print("Selected recipe: \(recipe)")
+                        }
+                        .foregroundColor(.black)
                 } else {
                     Text("No recipe for this date")
                         .padding(.vertical, 4)
