@@ -40,18 +40,21 @@ struct CalendarFeature {
         case recipeSelected(String)
     }
     
-    struct Destination: Reducer {
+    @Reducer
+    struct Destination {
+     
         enum State: Equatable {
             case recipeDetail(RecipeDetailFeature.State)
         }
         
+      
         enum Action: Equatable {
             case recipeDetail(RecipeDetailFeature.Action)
         }
         
         var body: some ReducerOf<Self> {
-            Scope(state: /State.recipeDetail,
-                  action: /Action.recipeDetail) {
+            Scope(state: \.recipeDetail,
+                  action: \.recipeDetail) {
                 RecipeDetailFeature()
             }
         }

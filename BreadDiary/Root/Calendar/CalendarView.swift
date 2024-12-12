@@ -49,8 +49,8 @@ struct CalendarView: View {
         .sheet(
             store: store.scope(state: \.$destination,
                                action: \.destination),
-            state: /CalendarFeature.Destination.State.recipeDetail,
-            action: CalendarFeature.Destination.Action.recipeDetail
+            state: \.recipeDetail,
+            action: { .recipeDetail($0) }
         ) { store in
             NavigationStack {
                 RecipeDetailView(store: store)
