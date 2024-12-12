@@ -5,7 +5,7 @@
 A beautiful iOS app to track and manage your bread baking journey, built with SwiftUI and The Composable Architecture.
 
 ## 📋 TODO List
-- [ ] Calendar view implementation
+- [ ] Photo selecton implementation
 - [ ] Additional test coverage
   - Unit tests for RecipeDetailFeature
   - Integration tests for data persistence
