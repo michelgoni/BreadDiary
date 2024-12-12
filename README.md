@@ -6,8 +6,7 @@ A beautiful iOS app to track and manage your bread baking journey, built with Sw
 
 ## 📋 TODO List
 
-- [ ] Saving recipe functionality
-- [ ] Calendar view implementation
+- [ ] Photo selection implementation
 - [ ] Additional test coverage
   - Unit tests for RecipeDetailFeature
   - Integration tests for data persistence
