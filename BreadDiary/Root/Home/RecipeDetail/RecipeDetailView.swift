@@ -1,6 +1,7 @@
 import SwiftUI
 import PhotosUI
 import ComposableArchitecture
+import UIKit
 
 struct RecipeDetailView: View {
     let store: StoreOf<RecipeDetailFeature>
@@ -109,8 +110,14 @@ struct RecipeDetailView: View {
     }
     
     private var photoSection: some View {
-        Section {
-            // Photo will go here
+        Section("Photo") {
+            if let imageData = store.entry.image,
+               let uiImage = UIImage(data: imageData) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxHeight: 200)
+            }
             Button("Add Photo") {
                 store.send(.photoButtonTapped)
             }
@@ -148,15 +155,19 @@ struct PhotoPickerView: View {
     
     var body: some View {
         PhotosPicker(
-            selection: .constant(nil),
+            selection: .init(
+                get: { nil },
+                set: { item in
+                    Task {
+                        guard let item = item else { return }
+                        guard let data = try? await item.loadTransferable(type: Data.self) else { return }
+                        store.send(.setImageData(data))
+                    }
+                }
+            ),
             matching: .images
         ) {
             Text("Select Photo")
-        }
-        .onChange(of: store.imageData) { _, newValue in
-            if let data = newValue {
-                store.send(.setImageData(data))
-            }
         }
     }
 }
