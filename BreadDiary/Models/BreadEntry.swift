@@ -98,12 +98,19 @@ extension Entry {
 
 extension Entry {
     func toBreadEntry() -> BreadEntry {
-        BreadEntry(
+        let imageURL: URL?
+        if let imageData = self.image {
+            imageURL = FileManager.saveImage(imageData, for: self.id)
+        } else {
+            imageURL = nil
+        }
+        
+        return BreadEntry(
             id: self.id,
             name: self.name,
             isFavorite: self.isFavorite,
             date: self.entryDate,
-            imageURL: nil,  
+            imageURL: imageURL,
             rating: self.evaluation
         )
     }
@@ -111,7 +118,7 @@ extension Entry {
 
 extension BreadEntry {
     func toEntry() -> Entry {
-        Entry(
+        var entry = Entry(
             entryDate: self.date,
             isFavorite: self.isFavorite,
             rating: self.rating,
@@ -119,6 +126,12 @@ extension BreadEntry {
             id: self.id,
             evaluation: self.rating
         )
+        
+        if let imageURL = self.imageURL {
+            entry.image = FileManager.loadImage(from: imageURL)
+        }
+        
+        return entry
     }
 }
 
