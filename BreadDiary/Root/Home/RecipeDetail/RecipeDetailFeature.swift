@@ -251,7 +251,9 @@ struct RecipeDetailFeature {
                 
             case .saveNewEntryResponse(.success):
                 state.delegate = .didSave
-                return .none
+                return .run { send in
+                    await send(.delegate(.didSave))
+                }
                 
             case .saveNewEntryResponse(.failure):
                 // Handle save failure
@@ -283,7 +285,9 @@ struct RecipeDetailFeature {
             
             case .didDelete:
                 state.delegate = .didDelete
-                return .none
+                return .run { send in
+                    await send(.delegate(.didDelete))
+                }
             
             case let .setIngredients(ingredients):
                 let ingredientsArray = ingredients.components(separatedBy: "\n")
