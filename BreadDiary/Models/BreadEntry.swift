@@ -2,7 +2,7 @@ import Foundation
 import Tagged
 import ComposableArchitecture
 
-struct BreadEntry: Identifiable, Equatable, Codable {
+struct BreadEntry: Identifiable, Equatable, Codable, Comparable {
     let id: UUID
     var name: String
     var isFavorite: Bool
@@ -24,6 +24,10 @@ struct BreadEntry: Identifiable, Equatable, Codable {
         self.date = date
         self.imageURL = imageURL
         self.rating = rating
+    }
+    
+    static func < (lhs: BreadEntry, rhs: BreadEntry) -> Bool {
+        lhs.date > rhs.date
     }
 }
 
@@ -78,8 +82,7 @@ struct Entry: Codable, Identifiable, Equatable {
 struct Ingredient: Codable, Identifiable, Equatable {
     let id: Tagged<Self, UUID>
     var ingredient = ""
-    
-  
+
 }
 
 extension Entry {
