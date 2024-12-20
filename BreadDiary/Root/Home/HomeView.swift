@@ -60,6 +60,19 @@ struct HomeView: View {
                 }
             }
             .navigationTitle("My Bread Diary")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    SortOptionsView(store: store)
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        store.send(.addNewRecipeTapped)
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
             .sheet(
                 store: store.scope(
                     state: \.$destination,
@@ -70,15 +83,6 @@ struct HomeView: View {
             ) { store in
                 NavigationStack {
                     RecipeDetailView(store: store)
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        store.send(.addNewRecipeTapped)
-                    } label: {
-                        Image(systemName: "plus")
-                    }
                 }
             }
         }

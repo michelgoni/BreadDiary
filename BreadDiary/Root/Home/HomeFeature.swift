@@ -14,16 +14,44 @@ struct HomeFeature {
         var entries: IdentifiedArrayOf<Entry> = []
         var searchState: SearchFeature.State
         @Presents var destination: Destination.State?
+        var sortOption: SortOption = .date
         
         init(
             isLoading: Bool = false,
             entries: IdentifiedArrayOf<Entry> = [],
-            destination: Destination.State? = nil
+            destination: Destination.State? = nil,
+            sortOption: SortOption = .date
         ) {
             self.isLoading = isLoading
             self.entries = entries
             self.searchState = SearchFeature.State(entries: entries)
             self.destination = destination
+            self.sortOption = sortOption
+        }
+    }
+    
+    enum SortOption: String, CaseIterable {
+        case date = "Date"
+        case name = "Name"
+        case rating = "Rating"
+        case favorites = "Favorites"
+        
+        func sort(_ entries: [Entry]) -> [Entry] {
+            switch self {
+            case .date:
+                return entries.sorted { $0.entryDate > $1.entryDate }
+            case .name:
+                return entries.sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
+            case .rating:
+                return entries.sorted { $0.evaluation > $1.evaluation }
+            case .favorites:
+                return entries.sorted { 
+                    if $0.isFavorite == $1.isFavorite {
+                        return $0.entryDate > $1.entryDate
+                    }
+                    return $0.isFavorite && !$1.isFavorite
+                }
+            }
         }
     }
     
@@ -38,6 +66,7 @@ struct HomeFeature {
         case toggleFavorite(Entry)
         case updateRecipe(Entry)
         case deleteEntry(Entry)
+        case sortOptionSelected(SortOption)
     }
     
     @Dependency(\.homeClient) var homeClient
@@ -57,7 +86,7 @@ struct HomeFeature {
                 
             case let .homeDataResponse(.success(entries)):
                 state.isLoading = false
-                state.entries = IdentifiedArray(uniqueElements: entries)
+                state.entries = IdentifiedArray(uniqueElements: state.sortOption.sort(entries))
                 return .send(.search(.updateEntries(state.entries)))
                 
             case .homeDataResponse(.failure):
@@ -141,7 +170,11 @@ struct HomeFeature {
                 
             case .favorite:
                 return .none
-            
+                
+            case let .sortOptionSelected(option):
+                state.sortOption = option
+                state.entries = IdentifiedArray(uniqueElements: option.sort(Array(state.entries)))
+                return .send(.search(.updateEntries(state.entries)))
             }
         }
         .ifLet(\.$destination, action: \.destination) {
