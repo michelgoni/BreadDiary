@@ -22,66 +22,7 @@ struct SearchView: View {
                 isLoading: isSearching
             )
             
-            FilterView(store: store)
         }
-    }
-}
-
-private struct FilterView: View {
-    let store: StoreOf<SearchFeature>
-    
-    var body: some View {
-        VStack(spacing: 12) {
-            Menu {
-                Button("All Ratings") {
-                    store.send(.ratingFilterChanged(nil))
-                }
-                ForEach(1...5, id: \.self) { rating in
-                    Button {
-                        store.send(.ratingFilterChanged(rating))
-                    } label: {
-                        HStack {
-                            Text("\(rating)+ Stars")
-                            if store.ratingFilter == rating {
-                                Image(systemName: "checkmark")
-                            }
-                        }
-                    }
-                }
-            } label: {
-                HStack {
-                    Image(systemName: "star.fill")
-                        .foregroundColor(.yellow)
-                    Text(store.ratingFilter.map { "\($0)+ Stars" } ?? "All Ratings")
-                        .foregroundColor(.primary)
-                    Spacer()
-                    Image(systemName: "chevron.up.chevron.down")
-                        .foregroundColor(.secondary)
-                        .imageScale(.small)
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(Color(.systemGray6))
-                .cornerRadius(8)
-            }
-            
-            Button {
-                store.send(.toggleFavoritesFilter)
-            } label: {
-                HStack {
-                    Image(systemName: store.showFavoritesOnly ? "heart.fill" : "heart")
-                        .foregroundColor(store.showFavoritesOnly ? .red : .secondary)
-                    Text("Favorites Only")
-                        .foregroundColor(store.showFavoritesOnly ? .primary : .secondary)
-                    Spacer()
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(store.showFavoritesOnly ? Color(.systemGray6) : Color.clear)
-                .cornerRadius(8)
-            }
-        }
-        .padding(.horizontal)
     }
 }
 
